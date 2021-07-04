@@ -9,11 +9,14 @@ import ru.geekbrains.nasaapp.viewmodel.MainViewModel
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -25,8 +28,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) } // привязка viewModel к жизненному циклу фрагмента MainFragment
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var title: TextView
+    private lateinit var explanation: TextView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        title = view.findViewById(R.id.bottom_sheet_title)
+        explanation = view.findViewById(R.id.bottom_sheet_explanation)
 
         // подписываемся на изменения LiveData<AppState>
         // связка с жизненным циклом вьюхи(!) фрагмента MainFragment
@@ -66,7 +76,29 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             lifecycle(this@MainFragment)
             error(R.drawable.ic_load_error_vector)
             placeholder(R.drawable.ic_no_photo_vector)
-
         }
+        title.text = data.title
+        explanation.text = data.explanation
+    }
+
+    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_DRAGGING -> {}
+                    BottomSheetBehavior.STATE_COLLAPSED -> {}
+                    BottomSheetBehavior.STATE_EXPANDED -> {}
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {}
+                    BottomSheetBehavior.STATE_HIDDEN -> {}
+                    BottomSheetBehavior.STATE_SETTLING -> {}
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+        })
     }
 }
