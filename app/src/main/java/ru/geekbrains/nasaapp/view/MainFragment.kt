@@ -7,6 +7,8 @@ import ru.geekbrains.nasaapp.utils.ViewBindingDelegate
 import ru.geekbrains.nasaapp.viewmodel.MainState
 import ru.geekbrains.nasaapp.viewmodel.MainViewModel
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -37,6 +39,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         title = view.findViewById(R.id.bottom_sheet_title)
         explanation = view.findViewById(R.id.bottom_sheet_explanation)
+
+        binding.inputLayout.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            })
+        }
 
         // подписываемся на изменения LiveData<AppState>
         // связка с жизненным циклом вьюхи(!) фрагмента MainFragment
