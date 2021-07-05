@@ -34,6 +34,16 @@ class MainViewModel(
         }
     }
 
+    fun getApod(date: String) {
+        mainLiveData.value = MainState.Loading(null)
+        val apiKey: String = BuildConfig.NASA_API_KEY
+        if (apiKey.isBlank()) {
+            MainState.Error(Throwable(NO_API_KEY))
+        } else {
+            dataSource.getPictureOfTheDay(apiKey, date, callBack)
+        }
+    }
+
     private val callBack = object :
         Callback<ApodResponseDTO> {
 

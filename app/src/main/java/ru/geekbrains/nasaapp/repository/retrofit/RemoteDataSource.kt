@@ -27,6 +27,10 @@ class RemoteDataSource {
         apodApi.getPictureOfTheDay(apiKey).enqueue(callback)
     }
 
+    fun getPictureOfTheDay(apiKey: String, date: String, callback: Callback<ApodResponseDTO>) {
+        apodApi.getPictureOfTheDay(apiKey, date).enqueue(callback)
+    }
+
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(interceptor)

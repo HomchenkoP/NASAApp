@@ -12,4 +12,10 @@ interface NasaApodAPI {
     fun getPictureOfTheDay(
         @Query("api_key") apiKey: String
     ): Call<ApodResponseDTO>
+
+    @GET("planetary/apod")
+    fun getPictureOfTheDay(
+        @Query("api_key") apiKey: String,
+        @Query("date") date: String
+    ): Call<ApodResponseDTO>
 }

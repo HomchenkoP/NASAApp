@@ -30,7 +30,7 @@
                 app:endIconDrawable="@drawable/ic_wikipedia"
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_search_helper_text"
-                app:layout_constraintBottom_toTopOf="@+id/imageView"
+                app:layout_constraintBottom_toTopOf="@+id/chipGroup"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -40,6 +40,44 @@
                     android:layout_height="wrap_content"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/prev_date"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/previous_date_text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/current_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/padding"
+                    android:paddingStart="@dimen/padding"
+                    android:paddingEnd="@dimen/padding"
+                    tools:text="Today" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/next_date"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/next_date_text"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    android:visibility="invisible" />
+            </com.google.android.material.chip.ChipGroup>
 
             <ru.geekbrains.nasaapp.utils.EquilateralImageView
                 android:id="@+id/imageView"
@@ -52,6 +90,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include layout="@layout/bottom_sheet_layout" />

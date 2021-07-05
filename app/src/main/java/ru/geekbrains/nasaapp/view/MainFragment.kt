@@ -10,6 +10,7 @@ import ru.geekbrains.nasaapp.viewmodel.MainViewModel
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +20,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -45,11 +49,35 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
+        binding.prevDate.setOnClickListener { changeApod(binding.currentDate.text.toString(), -1) }
+        binding.nextDate.setOnClickListener { changeApod(binding.currentDate.text.toString(), +1) }
 
         // подписываемся на изменения LiveData<AppState>
         // связка с жизненным циклом вьюхи(!) фрагмента MainFragment
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.getApod()
+    }
+
+    private fun changeApod(currentDate: String, shift: Int) {
+        lateinit var newDate: String
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        try {
+            calendar.time = sdf.parse(currentDate)
+            calendar.add(Calendar.DATE, shift) // на день больше или меньше
+            newDate = sdf.format(calendar.time)
+        } catch (e: ParseException) {
+            Log.e("", e.toString())
+            newDate = sdf.format(Date())
+        }
+
+        if (newDate == sdf.format(Date())) {
+            binding.nextDate.visibility = View.INVISIBLE
+        } else {
+            binding.nextDate.visibility = View.VISIBLE
+        }
+
+        viewModel.getApod(newDate)
     }
 
     private fun renderData(state: MainState) {
@@ -76,6 +104,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun displayApod(data: ApodResponseDTO) {
+        binding.currentDate.text = data.date
         val url = data.hdurl ?: data.url
         //загрузка и отображение картинки
         //Coil в работе: достаточно вызвать у нашего ImageView
