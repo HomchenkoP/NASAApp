@@ -1,9 +1,11 @@
 package ru.geekbrains.nasaapp.view
 
+import android.os.Build
 import ru.geekbrains.nasaapp.R
 
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ApiActivity : BaseActivity() {
@@ -12,11 +14,16 @@ class ApiActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_api)
 
-        val viewPager: ViewPager = findViewById<ViewPager>(R.id.view_pager)
+        val viewPager: ViewPager2 = findViewById<ViewPager2>(R.id.view_pager)
         val bottomNavigation: BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
 
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.adapter = ViewPagerAdapter(this)
+        if (Build.VERSION.SDK_INT >= 21) {
+            viewPager.setPageTransformer(DepthPageTransformer())
+        } else {
+            viewPager.setPageTransformer(ZoomOutPageTransformer())
+        }
+        viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 // связываем междусобой события ViewPager.PageSelected и BottomNavigationView.NavigationItemSelected
                 when (position) {
@@ -56,6 +63,6 @@ class ApiActivity : BaseActivity() {
         }
 
         // повторное нажатие игнорируем
-        bottomNavigation.setOnNavigationItemReselectedListener { menuItem -> }
+        bottomNavigation.setOnNavigationItemReselectedListener { _ -> }
     }
 }
