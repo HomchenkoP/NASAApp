@@ -18,6 +18,7 @@
         <item name="shapeAppearanceSmallComponent">@style/Theme.NASAApp.SmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/Theme.NASAApp.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/Theme.NASAApp.LargeComponent</item>
+        <item name="bottomNavigationStyle">@style/Theme.NASAApp.BottomNavigationView</item>
         <item name="chipStyle">@style/Theme.NASAApp.Chip</item>
         <item name="switchStyle">@style/Theme.NASAApp.Switch</item>
         <item name="popupMenuBackground">@drawable/custom_menu_background</item>
@@ -48,6 +49,15 @@
         <item name="cornerSizeTopRight">20dp</item>
         <item name="cornerSizeBottomLeft">20dp</item>
         <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+
+    <style name="Theme.NASAApp.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.NASAApp.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.NASAApp.BottomNavigationView" parent="">
+        <item name="colorSurface">?attr/colorOnPrimary</item>
+<!--        <item name="colorOnSurface">?attr/colorPrimary</item>-->
     </style>
 
     <style name="Theme.NASAApp.Chip" parent="Widget.MaterialComponents.Chip.Action">

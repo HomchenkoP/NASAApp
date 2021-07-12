@@ -3,11 +3,10 @@ package ru.geekbrains.nasaapp.view
 import ru.geekbrains.nasaapp.R
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ApiActivity : AppCompatActivity() {
+class ApiActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
