@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">NASAApp</string>
+    <string name="photo_of_the_day_stub">Astronomy Picture of the Day</string>
+    <string name="wiki_search_hint">Найти в Википедии</string>
+    <string name="wiki_search_helper_text">Термин</string>
+    <string name="previous_date_text">Предыдущий</string>
+    <string name="next_date_text">Следующий</string>
+    <string name="prefs_title">Настройки</string>
+    <string name="night_mode_text">Ночной режим</string>
 </resources>
