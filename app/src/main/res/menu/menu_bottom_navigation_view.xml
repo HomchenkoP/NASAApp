@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- В меню BottomNavigationView не должно быть более 5 элементов !!! -->
+    <item
+        android:id="@+id/bottom_view_earth"
+        android:icon="@drawable/ic_earth"
+        android:title="Earth"
+        app:showAsAction="always"
+        app:tooltipText="Earth"/>
+
+    <item
+        android:id="@+id/bottom_view_mars"
+        android:icon="@drawable/ic_mars"
+        android:orderInCategory="1"
+        android:title="Mars"
+        app:showAsAction="always"
+        app:tooltipText="Mars" />
+
+    <item
+        android:id="@+id/bottom_view_weather"
+        android:icon="@drawable/ic_system"
+        android:orderInCategory="2"
+        android:title="Weather"
+        app:showAsAction="always"
+        app:tooltipText="Weather"/>
+</menu>
