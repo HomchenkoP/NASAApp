@@ -12,5 +12,60 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorSurface">#FF212121</item>
+        <item name="colorOnSurface">#FFDEDEDE</item>
+        <item name="colorOnBackground">#FFDEDEDE</item>
+        <item name="shapeAppearanceSmallComponent">@style/Theme.NASAApp.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/Theme.NASAApp.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/Theme.NASAApp.LargeComponent</item>
+        <item name="chipStyle">@style/Theme.NASAApp.Chip</item>
+        <item name="switchStyle">@style/Theme.NASAApp.Switch</item>
+        <item name="popupMenuBackground">@drawable/custom_menu_background</item>
+    </style>
+
+    <style name="Theme.NASAApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSizeTopLeft">15dp</item>
+        <item name="cornerSizeBottomRight">15dp</item>
+    </style>
+
+    <style name="Theme.NASAApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+
+    <style name="Theme.NASAApp.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+
+    <style name="Theme.NASAApp.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.NASAApp.Chip</item>
+        <item name="shapeAppearanceOverlay">@style/Theme.NASAApp.SmallComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.NASAApp.Chip" parent="">
+        <item name="colorOnSurface">?attr/colorPrimary</item>
+        <item name="chipIconTint">@null</item>
+        <item name="checkedIconTint">@null</item>
+    </style>
+
+    <style name="Theme.NASAApp.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.NASAApp.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.NASAApp.Switch" parent="">
+        <item name="colorSecondary">?attr/colorPrimary</item>
     </style>
 </resources>
