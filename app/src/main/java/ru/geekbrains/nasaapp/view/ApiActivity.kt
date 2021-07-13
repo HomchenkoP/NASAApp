@@ -1,12 +1,13 @@
 package ru.geekbrains.nasaapp.view
 
-import android.os.Build
 import ru.geekbrains.nasaapp.R
 
+import android.os.Build
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.*
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import me.relex.circleindicator.CircleIndicator3
 
 class ApiActivity : BaseActivity() {
 
@@ -15,6 +16,7 @@ class ApiActivity : BaseActivity() {
         setContentView(R.layout.activity_api)
 
         val viewPager: ViewPager2 = findViewById<ViewPager2>(R.id.view_pager)
+        val indicator: CircleIndicator3 = findViewById(R.id.circle_indicator)
         val bottomNavigation: BottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
 
         viewPager.adapter = ViewPagerAdapter(this)
@@ -23,6 +25,7 @@ class ApiActivity : BaseActivity() {
         } else {
             viewPager.setPageTransformer(ZoomOutPageTransformer())
         }
+
         viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 // связываем междусобой события ViewPager.PageSelected и BottomNavigationView.NavigationItemSelected
@@ -42,6 +45,8 @@ class ApiActivity : BaseActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {}
         })
+
+        indicator.setViewPager(viewPager)
 
         bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
