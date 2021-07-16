@@ -7,15 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".view.MainFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingStart="@dimen/padding"
+            android:paddingTop="@dimen/padding"
             android:paddingEnd="@dimen/padding">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -30,9 +32,9 @@
                 app:endIconDrawable="@drawable/ic_wikipedia"
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_search_helper_text"
-                app:layout_constraintBottom_toTopOf="@+id/chipGroup"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_edit_text"
@@ -40,61 +42,149 @@
                     android:layout_height="wrap_content"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/imageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:singleLine="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/prev_date"
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/previous_date_text"
-                    android:visibility="visible"
-                    app:shapeAppearanceOverlay="@style/Theme.NASAApp.SmallComponent" />
-
-                <TextView
-                    android:id="@+id/current_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/padding"
-                    android:paddingStart="@dimen/padding"
-                    android:paddingEnd="@dimen/padding"
-                    tools:text="Today" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/next_date"
-                    style="@style/Widget.MaterialComponents.Chip.Action"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/next_date_text"
-                    android:visibility="invisible"
-                    app:shapeAppearanceOverlay="@style/Theme.NASAApp.SmallComponent" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <ru.geekbrains.nasaapp.utils.EquilateralImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/photo_of_the_day_stub"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_no_photo_vector" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/bottom_sheet_layout" />
+        <!-- CoordinatorLayout - это "продвинутый" FrameLayout -->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <!-- AppBarLayout - это "продвинутый" вертикальный LinearLayout -->
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- CollapsingToolbarLayout - это "продвинутый" FrameLayout -->
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorOnPrimary"
+                    app:collapsedTitleGravity="start"
+                    app:expandedTitleGravity="center_horizontal|bottom"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <ru.geekbrains.nasaapp.utils.EquilateralImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="?attr/colorOnPrimary"
+                        android:contentDescription="@string/photo_of_the_day_stub"
+                        app:layout_collapseMode="parallax"
+                        app:srcCompat="@drawable/ic_no_photo_vector" />
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        app:cardElevation="4dp">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            app:singleLine="true"
+                            app:singleSelection="true">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/prev_date"
+                                style="@style/Widget.MaterialComponents.Chip.Action"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/previous_date_text"
+                                android:visibility="visible"
+                                app:shapeAppearanceOverlay="@style/Theme.NASAApp.SmallComponent" />
+
+                            <TextView
+                                android:id="@+id/current_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="@dimen/padding"
+                                android:paddingStart="@dimen/padding"
+                                android:paddingEnd="@dimen/padding"
+                                tools:text="Today" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/next_date"
+                                style="@style/Widget.MaterialComponents.Chip.Action"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/next_date_text"
+                                android:visibility="invisible"
+                                app:shapeAppearanceOverlay="@style/Theme.NASAApp.SmallComponent" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        app:cardElevation="4dp"
+                        app:contentPadding="@dimen/padding">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/bottom_sheet_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/bottom_sheet_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="@dimen/padding"
+                                android:paddingEnd="@dimen/padding"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="Title" />
+
+                            <View
+                                android:id="@+id/bottom_sheet_line"
+                                android:layout_width="25dp"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="5dp"
+                                android:background="?attr/colorOnSurface"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_title" />
+
+                            <TextView
+                                android:id="@+id/bottom_sheet_explanation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:paddingStart="@dimen/padding"
+                                android:paddingEnd="@dimen/padding"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
+                                tools:text="Explanation" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 
     <include
         android:id="@+id/mainFragmentLoadingLayout"
