@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/position_one">
+
+        <Constraint
+            android:id="@+id/wiki_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="14dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/wiki_button"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/wiki_button" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/position_two">
+
+        <Constraint
+            android:id="@+id/wiki_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="14dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/wiki_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/wiki_button" />
+    </ConstraintSet>
+
+<!--    <Transition-->
+<!--        app:constraintSetEnd="@+id/position_two"-->
+<!--        app:constraintSetStart="@+id/position_one"-->
+<!--        app:duration="300">-->
+
+<!--        <OnClick app:targetId="@id/wiki_button" />-->
+<!--    </Transition>-->
+
+    <Transition
+        app:constraintSetEnd="@+id/position_two"
+        app:constraintSetStart="@+id/position_one"
+        app:duration="300">
+
+        <OnSwipe
+            app:dragDirection="dragLeft"
+            app:onTouchUp="autoComplete"
+            app:touchAnchorId="@id/wiki_button"
+            app:touchAnchorSide="left"
+            app:touchRegionId="@id/wiki_button" />
+    </Transition>
+
+    <Transition
+        app:constraintSetEnd="@+id/position_one"
+        app:constraintSetStart="@+id/position_two"
+        app:duration="300">
+
+        <OnSwipe
+            app:dragDirection="dragRight"
+            app:onTouchUp="autoComplete"
+            app:touchAnchorId="@+id/input_layout"
+            app:touchAnchorSide="right"
+            app:touchRegionId="@id/input_layout" />
+    </Transition>
+
+</MotionScene>

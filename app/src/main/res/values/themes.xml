@@ -19,6 +19,7 @@
         <item name="shapeAppearanceMediumComponent">@style/Theme.NASAApp.MediumComponent</item>
         <item name="shapeAppearanceLargeComponent">@style/Theme.NASAApp.LargeComponent</item>
         <item name="bottomNavigationStyle">@style/Theme.NASAApp.BottomNavigationView</item>
+        <item name="materialCardViewStyle">@style/Theme.NASAApp.CardView</item>
         <item name="chipStyle">@style/Theme.NASAApp.Chip</item>
         <item name="switchStyle">@style/Theme.NASAApp.Switch</item>
         <item name="popupMenuBackground">@drawable/custom_menu_background</item>
@@ -32,11 +33,9 @@
     </style>
 
     <style name="Theme.NASAApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamilyTopRight">rounded</item>
-        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
-        <item name="cornerSizeTopRight">20dp</item>
-        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerSizeTopLeft">20dp</item>
         <item name="cornerSizeBottomRight">20dp</item>
     </style>
 
@@ -58,6 +57,15 @@
     <style name="ThemeOverlay.NASAApp.BottomNavigationView" parent="">
         <item name="colorPrimary">?attr/colorSurface</item>
         <item name="colorOnPrimary">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="Theme.NASAApp.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.NASAApp.Card</item>
+        <item name="shapeAppearanceOverlay">@style/Theme.NASAApp.MediumComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.NASAApp.Card" parent="">
+<!--        <item name="colorSurface">?attr/colorPrimary</item>-->
     </style>
 
     <style name="Theme.NASAApp.Chip" parent="Widget.MaterialComponents.Chip.Action">
