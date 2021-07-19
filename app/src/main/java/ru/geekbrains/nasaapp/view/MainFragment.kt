@@ -1,5 +1,7 @@
 package ru.geekbrains.nasaapp.view
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import ru.geekbrains.nasaapp.R
 import ru.geekbrains.nasaapp.databinding.FragmentMainBinding
 import ru.geekbrains.nasaapp.model.ApodResponseDTO
@@ -74,7 +76,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.nextDate.visibility = View.VISIBLE
         }
 
-        viewModel.getApod(newDate)
+        hideApodDetails(newDate, viewModel::getApod) // вызов viewModel.getApod(newDate)
     }
 
     private fun renderData(state: MainState) {
@@ -113,5 +115,34 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
         title.text = data.title
         explanation.text = data.explanation
+        showApodDetails()
+    }
+
+    private fun showApodDetails() {
+        binding.imageView.animate()
+            .alpha(1f)
+            .duration = 1000
+
+        binding.scrolledView.animate()
+            .alpha(1f)
+            .setDuration(1000)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {}
+            })
+    }
+
+    private fun hideApodDetails(date: String, callback: (date: String) -> Unit) {
+        binding.imageView.animate()
+            .alpha(0f)
+            .duration = 1000
+
+        binding.scrolledView.animate()
+            .alpha(0f)
+            .setDuration(1000)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    callback(date)
+                }
+            })
     }
 }
