@@ -1,7 +1,5 @@
 package ru.geekbrains.nasaapp.view
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import ru.geekbrains.nasaapp.R
 import ru.geekbrains.nasaapp.databinding.FragmentMainBinding
 import ru.geekbrains.nasaapp.model.ApodResponseDTO
@@ -9,16 +7,24 @@ import ru.geekbrains.nasaapp.utils.ViewBindingDelegate
 import ru.geekbrains.nasaapp.viewmodel.MainState
 import ru.geekbrains.nasaapp.viewmodel.MainViewModel
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.api.load
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -37,6 +43,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var title: TextView
     private lateinit var explanation: TextView
 
+    private var imgIsExpanded = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,6 +58,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
         binding.prevDate.setOnClickListener { changeApod(binding.currentDate.text.toString(), -1) }
         binding.nextDate.setOnClickListener { changeApod(binding.currentDate.text.toString(), +1) }
+
+        binding.imageView.setOnClickListener {
+            imgIsExpanded = !imgIsExpanded
+            TransitionManager.beginDelayedTransition(
+                binding.collapsing, TransitionSet()
+                    .addTransition(ChangeBounds())
+                    .addTransition(ChangeImageTransform())
+            )
+
+            val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
+            if (imgIsExpanded) {
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+            } else {
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                binding.imageView.scaleType = ImageView.ScaleType.FIT_CENTER
+            }
+            binding.imageView.layoutParams = params
+        }
 
         // подписываемся на изменения LiveData<AppState>
         // связка с жизненным циклом вьюхи(!) фрагмента MainFragment
