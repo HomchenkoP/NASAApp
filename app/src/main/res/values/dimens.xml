@@ -3,4 +3,6 @@
     <dimen name="padding">10dp</dimen>
     <dimen name="page_indicator_bottom_margin">20dp</dimen>
     <dimen name="page_indicator_gap">7dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="recycler_item_text_size">35sp</dimen>
 </resources>
