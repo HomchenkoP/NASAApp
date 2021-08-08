@@ -3,6 +3,7 @@ package ru.geekbrains.nasaapp.view
 import ru.geekbrains.nasaapp.R
 import ru.geekbrains.nasaapp.databinding.FragmentMainBinding
 import ru.geekbrains.nasaapp.model.ApodResponseDTO
+import ru.geekbrains.nasaapp.utils.indexesOf
 import ru.geekbrains.nasaapp.utils.ViewBindingDelegate
 import ru.geekbrains.nasaapp.viewmodel.MainState
 import ru.geekbrains.nasaapp.viewmodel.MainViewModel
@@ -10,8 +11,12 @@ import ru.geekbrains.nasaapp.viewmodel.MainViewModel
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -141,8 +146,41 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             placeholder(R.drawable.ic_no_photo_vector)
         }
         title.text = data.title
-        explanation.text = data.explanation
+        explanation.text = spannedText(data.explanation, data.title)
         showApodDetails()
+    }
+
+    // выделяем в тексте все встретившиеся лексемы
+    private fun spannedText(text: String?, tokens: String?): SpannableString {
+        val tokenizer = StringTokenizer(tokens, " .,-:")
+        // список лексем
+        var tokensList: MutableList<String> = mutableListOf()
+
+        while (tokenizer.hasMoreTokens()) {
+            // помещаем в список лексемы, состоящие из трех и более символов
+            tokenizer.nextToken().toString().takeIf { it.length >= 3 }?.also { tokensList.add(it) }
+        }
+
+        // список размещения лексем в тексте
+        var spanStartEndList: MutableList<Pair<Int, Int>> = mutableListOf()
+
+        tokensList.forEach { token ->
+            spanStartEndList.addAll((text.indexesOf(token) as List<Int>).map {
+                Pair(it, it + token.length)
+            })
+        }
+
+        val spannable = SpannableString(text)
+
+        spanStartEndList.forEach {
+            spannable.setSpan(
+                StyleSpan(Typeface.BOLD_ITALIC),
+                it.first,
+                it.second,
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE
+            )
+        }
+        return spannable
     }
 
     private fun showApodDetails() {
