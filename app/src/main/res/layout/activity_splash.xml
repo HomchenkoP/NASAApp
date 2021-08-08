@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
     tools:context=".view.SplashActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -12,5 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_nasa" />
+        android:alpha="0.0"
+        app:srcCompat="@drawable/ic_nasa"
+        tools:alpha="0.5" />
 </FrameLayout>
