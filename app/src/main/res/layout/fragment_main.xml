@@ -55,6 +55,7 @@
                     android:id="@+id/input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/oxygen_light"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.motion.widget.MotionLayout>
@@ -123,6 +124,7 @@
                                 style="@style/Widget.MaterialComponents.Chip.Action"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/oxygen_light"
                                 android:text="@string/previous_date_text"
                                 android:visibility="visible"
                                 app:shapeAppearanceOverlay="@style/Theme.NASAApp.SmallComponent" />
@@ -131,6 +133,7 @@
                                 android:id="@+id/current_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/oxygen_light"
                                 android:paddingVertical="@dimen/padding"
                                 android:paddingStart="@dimen/padding"
                                 android:paddingEnd="@dimen/padding"
@@ -141,6 +144,7 @@
                                 style="@style/Widget.MaterialComponents.Chip.Action"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/oxygen_light"
                                 android:text="@string/next_date_text"
                                 android:visibility="invisible"
                                 app:shapeAppearanceOverlay="@style/Theme.NASAApp.SmallComponent" />
@@ -163,6 +167,7 @@
                                 android:id="@+id/bottom_sheet_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/oxygen_light"
                                 android:paddingStart="@dimen/padding"
                                 android:paddingEnd="@dimen/padding"
                                 android:textStyle="bold"
@@ -186,6 +191,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/oxygen_light"
                                 android:paddingStart="@dimen/padding"
                                 android:paddingEnd="@dimen/padding"
                                 app:layout_constraintEnd_toEndOf="parent"
